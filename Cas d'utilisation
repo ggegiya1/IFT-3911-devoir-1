@@ -21,15 +21,15 @@ Acteurs : le client
 Pré-conditions :
 - il y a au moins un siège disponible dans un vol donné
 
-Post-conditions : 
+Post-conditions :
 - le système fourni au client le numéro de réservation du siège choisi
-- le système marque le siège choisit n’étant plus disponible 
+- le système marque le siège choisit n’étant plus disponible
 
 Scénario principal (succès):
 1. Le client commence une réservation
 2. Le client saisit le numéro du vol choisit dans le système
 3. Le système affiche les sieges disponibles
-4. Le client choisit un siège et saisit le numéro du siège  
+4. Le client choisit un siège et saisit le numéro du siège
 5. Le système marque le siège choisit RÉSERVÉ
 6. Le système présente au client le numéro de réservation du siège choisi
 
@@ -39,20 +39,20 @@ Cas 3: Payer un siège
 
 Acteur : le client
 Pré-conditions : le client possède un numéro de réservation
-Post-conditions : 
+Post-conditions :
 - Un siège réservé devient assigné à un passager
 - Une confirmation de paiement est produite
 
-Scénario principal (succès): 
+Scénario principal (succès):
 1. Le client commence un payement
 2. Le client saisit le numéro de réservation du siège
 3. Le système vérifie si le numéro de réservation est valide :
-- la réservation existe dans le système 
+- la réservation existe dans le système
 - la réservation n’est pas expirée (il y a moins de 24 après la réservation)
 - le siège réservé n’est pas confirmé
 4. Le système affiche le montant à payer et propose au client de payer
 5. Le client saisit les données personnelles (non, âge, adresse etc.)
-6. Le client effectue un payement par carte de crédit 
+6. Le client effectue un payement par carte de crédit
 7. Le système communique au système de payement externe et demande d’autoriser le payement.
 8. Le système assigne le siège au client	(change le statut de siège de RÉSERVÉ à CONFIRMÉ)
 9. Le système enregistre la vente
@@ -63,14 +63,14 @@ Scénario principal (succès):
 Cas 4: Annuler une réservation non confirmée
 
 Acteur : le client
-Pré-condition : le client possède le numéro de réservation
-Post-condition : le siège réservé redevient disponible 
+Pré-condition : le client possède un numéro de réservation
+Post-condition : le siège réservé redevient disponible
 
 Scénario principal (succès):
 1. Le client demande une annulation de réservation
 2. Le client saisit le numéro de réservation du siège
 3. Le système vérifie si le numéro de réservation est valide :
-- la réservation existe dans le système 
+- la réservation existe dans le système
 - la réservation n’est pas expirée (il y a moins de 24 après la réservation)
 - le siège réservé n’est pas confirmé
 4. Le système annule la réservation et change le statut du siège réserve de RÉSERVÉ à DISPONIBLE
@@ -81,13 +81,16 @@ Scénario principal (succès):
 Cas 5: Changer une réservation non confirméee
 
 Acteur : le client
-Pré-conditions: le possède un numéro de réservation
+Pré-conditions: le client possède un numéro de réservation
+Post-condition:
+- le siège réservé redevient disponible
+- le systéme propose au client à faire une nouvelle réservation
 
 Scénario principal (succès):
 1. Le client demande un changement de réservation
 2. Le client saisit le numéro de la réservation actuelle
 3. Le système vérifie si le numéro de réservation est valide :
-- la réservation existe dans le système 
+- la réservation existe dans le système
 - la réservation n’est pas expirée (il y a moins de 24 après la réservation)
 - le siège réservé n’est pas confirmé
 4. Le système annule la réservation et change le statut du siège réserve de RÉSERVÉ à LIBRE
@@ -96,7 +99,87 @@ Scénario principal (succès):
 
 Cas 6: Annuler une réservation confirmée
 
-Acteur : le client
-Pré-conditions: 
-- le possède un numéro de réservation
+Acteurs :
+- le client
+- le système
 
+Pré-conditions:
+- le client possède un numéro de réservation
+- le siège est confirmé
+
+Post-conditions
+- le siège réservé redevient disponible
+- 90% du prix payé est remboursé au client
+
+Scénario principal (succès):
+1. Le client demande une annualtion de réservation
+2. Le client saisit le numéro de la réservation actuelle
+3. Le système vérifie si le numéro de réservation est valide :
+- la réservation existe dans le système
+- le réservation est confirmé (payée)
+5. Le système propose au client d'effectuer un payment
+6. Le client entre la carte
+7. Le système communique au système de payement externe et rembourse 90% du prix payé au client
+8. Le système annule la réservation et change le statut du siège réserve de RÉSERVÉ à LIBRE
+9. Le système confirme au client que l’opération a été effectuée  et lui fournit un reçu
+
+
+
+
+Cas 7: Changer la date d'une réservation confirmée
+
+Acteurs :
+- le client
+
+Pré-conditions:
+- le client possède un numéro de réservation
+- le siège est confirmé
+
+Post-conditions
+- le siège réservé redevient disponible
+- une nouvelle réservation est crée pour la date demandée
+
+Scénario principal (succès):
+1. Le client demande une annualtion de réservation
+2. Le client saisit le numéro de la réservation actuelle
+3. Le système vérifie si le numéro de réservation est valide :
+- la réservation existe dans le système
+- le réservation est confirmé (payée)
+4. Le client saisit la nouvelle date du vol
+5. Le système vérifie la disponibilité des sièges de la même catégorie pour la date choisie
+6. Le système cree une nouvelle réservation confirmé pour la data choisie
+7. Le système annule l'ancienne réservation et change le statut du siège réserve de RÉSERVÉ à LIBRE
+8. Le système confirme au client que l’opération a été effectuée
+
+
+
+
+Cas 8: Changer la catégorie d'un siège confirmé
+
+Acteurs :
+- le client
+- le système
+
+Pré-conditions:
+- le client possède un numéro de réservation
+- le siège est confirmé
+
+Post-conditions
+- le siège réservé redevient disponible
+- un nouveau siège et réservé et confirmé pour le client
+
+Scénario principal (succès):
+1. Le client demande une annualtion de réservation
+2. Le client saisit le numéro de la réservation actuelle
+3. Le système vérifie si le numéro de réservation est valide :
+- la réservation existe dans le système
+- le réservation est confirmé (payée)
+4. Le client choisit la classe (catégorie) de siège désirée
+5. Le système vérifie la disponibilité des sièges dans la classe choisie
+6. Le système cree une nouvelle reservation pour le siège choisi
+7. Le système propose au client d'effectuer le payement
+8. Le client entre la carte
+9. Le système communique au système de payement externe et autorise le payement
+10. Le système assigne le siège au client	(change le statut de siège de RÉSERVÉ à CONFIRMÉ)
+11. Le système annule l'ancienne réservation et change le statut du siège réserve de RÉSERVÉ à LIBRE
+12. Le système confirme au client que l’opération a été effectuée et lui fournit un reçu
