@@ -7,9 +7,9 @@ context DéscriptionVol
    et la partie numérique est unique à chaque vol au sein de la même compagnie.
 
 context CompagnieAériene
-	inv: self.vol.avion.séction.siège.allInstances() 
-		-> forAll(s1, s2: self.vol.avion.séction.siège 
-			| s1 <> s1 implies s1.prix = s2.prix)
+   inv: self.vol.avion.séction.siège.allInstances() 
+      -> forAll(s1, s2: self.vol.avion.séction.siège 
+         | s1 <> s1 implies s1.prix = s2.prix)
 
 
 3) Tous les sièges d'une même section ont le même prix dans la même compagnie.
