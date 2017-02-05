@@ -45,18 +45,25 @@
 		<ul>
   			<li>Une instance réservation de Réservation est créée.</li>
   			<li>réservation est associée avec Siège d'un Vol.</li>
-  			<li>L'attribut étatRéservation du siège devient réservé ou true.</li>
-  			<li>L'attribut noSiègesDispo du Vol décremente sa valeur.</li>
 		</ul>
 	</p>
 	</br>
 
 <!-- Saisir siège -->
 	<h2>Contrat pour <em>saisirSiège</em></h2>
-	<p><b>Opèration :</b> </p>
-	<p><b>Référence :</b> Cas d'utilisation <em>Réserver siège</em></p>
-	<p><b>Préconditions :</b> </p>
-	<p><b>Postconditions :</b> </p>
+	<p><b>Opèration :</b> 
+		saisirSiège (numéroSiège)
+	</p>
+	<p><b>Référence :</b> 
+		Cas d'utilisation <em>Réserver siège</em>.
+	</p>
+	<p><b>Préconditions :</b> 
+		La valeur de l'attribut noSiègesDispo du Vol est > 0 et le siège à réserver est disponible.
+	</p>
+	<p><b>Postconditions :</b> 
+		<li>L'attribut étatRéservation du siège devient réservé (ou true).</li>
+  		<li>L'attribut noSiègesDispo du Vol décremente sa valeur.</li>
+	</p>
 	</br>
 
 <!-- Cas utilisation: Payer siège -->
