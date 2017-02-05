@@ -67,29 +67,41 @@
 	</br>
 
 <!-- Cas utilisation: Payer siège -->
-<!-- Saisir siège -->
-	<h2>Contrat pour <em>RéserverSiège</em></h2>
-	<p><b>Opèration :</b> </p>
-	<p><b>Référence :</b> Cas d'utilisation <em>Payer siège</em></p>
-	<p><b>Préconditions :</b> </p>
-	<p><b>Postconditions :</b> </p>
-	</br>
-
 <!-- Payer siège -->
 	<h2>Contrat pour <em>PayerSiège</em></h2>
-	<p><b>Opèration :</b> </p>
-	<p><b>Référence :</b> Cas d'utilisation <em>Payer siège</em></p>
-	<p><b>Préconditions :</b> </p>
-	<p><b>Postconditions :</b> </p>
+	<p><b>Opèration :</b> 
+		payerSiège (donnéesPersonnelles, modePayement).
+	</p>
+	<p><b>Référence :</b> 
+		Cas d'utilisation <em>Payer siège</em>.
+	</p>
+	<p><b>Préconditions :</b> 
+		Le siège n'est pas payé et il est en état réservé.
+	</p>
+	<p><b>Postconditions :</b> 
+		<li>Une instance payement dans Payement est créée.</li>
+		<li>Une association entre Payement et Réservation est créée.</li>
+  		<li>L'instance état du Siège change son état en payé.</li>
+  		<li>Les attributs de l'instance du Payement ont enregistrés les données de la transaction.</li>
+	</p>
 	</br>
 
 <!-- Cas utilisation: Annuler réservation nonconfirmée -->
 <!-- Demander annulation -->
 	<h2>Contrat pour <em>demanderAnnulation</em></h2>
-	<p><b>Opèration :</b> </p>
-	<p><b>Référence :</b> Cas d'utilisation <em>Annuler réservation nonconfirmée</em></p>
-	<p><b>Préconditions :</b> </p>
-	<p><b>Postconditions :</b> </p>
+	<p><b>Opèration :</b> 
+		demanderAnnulation (noConfirmation)
+	</p>
+	<p><b>Référence :</b> 
+		Cas d'utilisation <em>Annuler réservation nonconfirmée</em>.</p>
+	<p><b>Préconditions :</b> 
+		Une reservation est active, mais elle n'est pas encore payée.
+	</p>
+	<p><b>Postconditions :</b> 
+		<li>Lattribut état de l'instance du Siège redevient disponnible.</li>
+		<li>La valeur de l'attribut noPlacesDispo du Vol incremente.</li>
+		<li>L'instance réservation de Réservation est éffacée.</li>
+	</p>
 	</br>
 
 <!-- Cas utilisation: Changer réservation nonconfirmée -->
