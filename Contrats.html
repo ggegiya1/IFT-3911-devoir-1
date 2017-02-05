@@ -12,13 +12,19 @@
 <!-- Cas utilisation: Verifier vols disponibles -->
 <!-- afficherVols -->
 	<h2>Contrat pour <em>afficherVols</em></h2>
-	<p><b>Opèration :</b> afficherVols(aéroportDépart, aéroportDéstination, date, classe)</p>
-	<p><b>Référence :</b> Cas d'utilisation <em>Verifier vols disponibles</em></p>
-	<p><b>Préconditions :</b> Il n'y a pas de liste de vols</p>
+	<p><b>Opèration :</b> 
+		afficherVols(aéroportDépart, aéroportDéstination, date, classe).
+	</p>
+	<p><b>Référence :</b> 
+		Cas d'utilisation <em>Verifier vols disponibles.</em>
+	</p>
+	<p><b>Préconditions :</b> 
+		Il n'y a pas de liste de vols.
+	</p>
 	<p><b>Postconditions :</b> 
 		<ul>
-  			<li>Une instance listeVols de ListeVols est créée</li>
-  			<li>listeVol est associée avec Vol</li>
+  			<li>Une instance listeVols de ListeVols est créée.</li>
+  			<li>listeVol est associée avec Vol.</li>
 		</ul>
 	</p>
 	</br>
@@ -26,10 +32,23 @@
 <!-- Cas utilisation: Réserver un siège -->
 <!-- Réserver siège -->
 	<h2>Contrat pour <em>RéserverSiège</em></h2>
-	<p><b>Opèration :</b> </p>
-	<p><b>Référence :</b> Cas d'utilisation <em>Réserver siège</em></p>
-	<p><b>Préconditions :</b> </p>
-	<p><b>Postconditions :</b> </p>
+	<p><b>Opèration :</b> 
+		RéserverSiège (vol, priorité).
+	</p>
+	<p><b>Référence :</b> 
+		Cas d'utilisation <em>Réserver siège</em>.
+	</p>
+	<p><b>Préconditions :</b> 
+		Il n'y a pas de réservations et il y a des sièges disponibles pour un vol donné.
+	</p>
+	<p><b>Postconditions :</b> 
+		<ul>
+  			<li>Une instance réservation de Réservation est créée.</li>
+  			<li>réservation est associée avec Siège d'un Vol.</li>
+  			<li>L'attribut étatRéservation du siège devient réservé ou true.</li>
+  			<li>L'attribut noSiègesDispo du Vol décremente sa valeur.</li>
+		</ul>
+	</p>
 	</br>
 
 <!-- Saisir siège -->
