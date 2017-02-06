@@ -9,8 +9,8 @@ context DéscriptionVol
 
 context CompagnieAériene
    inv: let 
-            first2chars = self.vol.id.at(0) + self.vol.id.at(1)
-            last_chars  = self.vol.id.excludes(first2chars)
+            first2chars = self.vol.idVol.at(0) + self.vol.idVol.at(1)
+            last_chars  = self.vol.idVol.excludes(first2chars)
         in
             self.allInstances() -> forAll(c1, c2: CompagnieAériene 
                | c1 <> c2 implies c1.first2chars <> c2.first2chars)
@@ -19,6 +19,7 @@ context CompagnieAériene
 
 
 3) Tous les sièges d'une même section ont le même prix dans la même compagnie.
+
 context CompagnieAériene
    inv: self.vol.avion.séction.siège.allInstances() 
       -> forAll(s1, s2: self.vol.avion.séction.siège 
