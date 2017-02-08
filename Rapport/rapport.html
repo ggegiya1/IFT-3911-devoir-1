@@ -1,6 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html><head>
-<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>rapport</title></head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>rapport</title>
+
+</head>
 <body>
 <span style="font-weight: bold;">IFT 3911. Analyse et
 conception des logiciels</span><br>
@@ -49,33 +51,485 @@ Dorin Diaconu<br>
 </tbody>
 </table>
 <br>
-<br><br><br><h2>Modèle de conception du domaine</h2>Premièrement, on à
-créé une diagrame de cas d'utilisation et la déscription détailée pour
-chaque cas d'utilisation. Cela nous a aidée de mieux comprendre la
-structure qu'on devait implementer.<h3>Diagramme de cas d'utilisation concernant le client</h3><img style="width: 1083px; height: 659px;" alt="Diagramme cas d'utilisation" src="Domaine/diagramme_cas_utilisation.png"><br><h3>Déscription des cas d'utilisation</h3><h4>Cas 1: Vérifier des vols disponibles</h4><span style="font-style: italic;">Acteur :</span> le client<br><span style="font-style: italic;">Post-condition :</span>
-le système affiche la liste des vols avec le détail pour chacun : date
-et heure de départ, durée du vol, heure d'arrivée, compagnie aérienne,
-numéro du vol, prix, nombre de sièges disponibles pour la section.<br><br><span style="font-style: italic;">Scénario principal (succès) :</span><br>1. Le client commence une nouvelle recherche<br>2. Le client saisit l&#8217;aéroport d'origine, la destination, une date et la classe désirée<br>3.
-Le système affiche la liste des vols avec le détail pour chacun : date
-et heure de départ, durée du vol, heure d'arrivée, compagnie aérienne,
-numéro du vol, prix, nombre de sièges disponibles pour la section<br><br><span style="font-style: italic;">Scénario alternatif :</span><br>3a : aucun siège disponible pour les données saisies<br>1. Le système retourne une liste vide (soit une message)<br><h4>Cas 2: Réserver un siège</h4><span style="font-style: italic;">Acteurs :</span> le client<br><span style="font-style: italic;">Pré-conditions :</span><br>- il y a au moins un siège disponible dans un vol donné<br><br><span style="font-style: italic;">Post-conditions :</span><br>- le système fourni au client le numéro de réservation du siège choisi<br>- le système marque le siège choisit n&#8217;étant plus disponible<br><br><span style="font-style: italic;">Scénario principal (succès):</span><br>1. Le client commence une réservation<br>2. Le client saisit le numéro du vol choisit dans le système<br>3. Le système affiche les sieges disponibles<br>4. Le client choisit un siège et saisit le numéro du siège<br>5. Le système marque le siège choisit RÉSERVÉ<br>6. Le système présente au client le numéro de réservation du siège choisi<br><h4>Cas 3: Payer un siège</h4><span style="font-style: italic;">Acteur : </span>le client<br><span style="font-style: italic;">Pré-conditions :</span> le client possède un numéro de réservation<br><span style="font-style: italic;">Post-conditions :</span><br>- Un siège réservé devient assigné à un passager<br>- Une confirmation de paiement est produite<br><br style="font-style: italic;"><span style="font-style: italic;">Scénario principal (succès):</span><br>1. Le client commence un payement<br>2. Le client saisit le numéro de réservation du siège<br>3. Le système vérifie si le numéro de réservation est valide :<br>- la réservation existe dans le système<br>- la réservation n&#8217;est pas expirée (il y a moins de 24 après la réservation)<br>- le siège réservé n&#8217;est pas confirmé<br>4. Le système affiche le montant à payer et propose au client de payer<br>5. Le client saisit les données personnelles (non, âge, adresse etc.)<br>6. Le client effectue un payement par carte de crédit<br>7. Le système communique au système de payement externe et demande d&#8217;autoriser le payement.<br>8. Le système assigne le siège au client&nbsp; (change le statut de siège de RÉSERVÉ à CONFIRMÉ)<br>9. Le système enregistre la vente<br>10. Le système génère un reçu au client<br><h4>Cas 4: Annuler une réservation non confirmée</h4><span style="font-style: italic;">Acteur :</span> le client<br><span style="font-style: italic;">Pré-condition :</span> le client possède un numéro de réservation<br><span style="font-style: italic;">Post-condition :</span> le siège réservé redevient disponible<br><br><span style="font-style: italic;">Scénario principal (succès):</span><br>1. Le client demande une annulation de réservation<br>2. Le client saisit le numéro de réservation du siège<br>3. Le système vérifie si le numéro de réservation est valide :<br>- la réservation existe dans le système<br>- la réservation n&#8217;est pas expirée (il y a moins de 24 après la réservation)<br>- le siège réservé n&#8217;est pas confirmé<br>4. Le système annule la réservation et change le statut du siège réserve de RÉSERVÉ à DISPONIBLE<br>5. Le système confirme au client que l&#8217;opération a été effectuée<br><h4>Cas 5: Changer une réservation non confirméee</h4><span style="font-style: italic;">Acteur :</span> le client<br><span style="font-style: italic;">Pré-conditions :</span> le client possède un numéro de réservation<br><span style="font-style: italic;">Post-condition :</span><br>- le siège réservé redevient disponible<br>- le systéme propose au client à faire une nouvelle réservation<br><br><span style="font-style: italic;">Scénario principal (succès):</span><br>1. Le client demande un changement de réservation<br>2. Le client saisit le numéro de la réservation actuelle<br>3. Le système vérifie si le numéro de réservation est valide :<br>- la réservation existe dans le système<br>- la réservation n&#8217;est pas expirée (il y a moins de 24 après la réservation)<br>- le siège réservé n&#8217;est pas confirmé<br>4. Le système annule la réservation et change le statut du siège réserve de RÉSERVÉ à LIBRE<br>5.
-Le système confirme au client que l&#8217;opération a été effectuée et
-propose au client à effectuer une nouvelle réservation (Cas 1: Vérifier
-des vols disponibles)<br><h4>Cas 6: Annuler une réservation confirmée</h4><span style="font-style: italic;">Acteurs :</span><br>- le client<br>- le système<br><br><span style="font-style: italic;">Pré-conditions:</span><br>- le client possède un numéro de réservation<br>- le siège est confirmé<br><br><span style="font-style: italic;">Post-conditions</span> :<br>- le siège réservé redevient disponible<br>- 90% du prix payé est remboursé au client<br><br><span style="font-style: italic;">Scénario principal (succès):</span><br>1. Le client demande une annualtion de réservation<br>2. Le client saisit le numéro de la réservation actuelle<br>3. Le système vérifie si le numéro de réservation est valide :<br>- la réservation existe dans le système<br>- le réservation est confirmé (payée)<br>5. Le système propose au client d'effectuer un payment<br>6. Le client entre la carte<br>7. Le système communique au système de payement externe et rembourse 90% du prix payé au client<br>8. Le système annule la réservation et change le statut du siège réserve de RÉSERVÉ à LIBRE<br>9. Le système confirme au client que l&#8217;opération a été effectuée&nbsp; et lui fournit un reçu<br><h4>Cas 7: Changer la date d'une réservation confirmée</h4><span style="font-style: italic;">Acteurs :</span><br>- le client<br><br><span style="font-style: italic;">Pré-conditions:</span><br>- le client possède un numéro de réservation<br>- le siège est confirmé<br><br><span style="font-style: italic;">Post-conditions</span><br>- le siège réservé redevient disponible<br>- une nouvelle réservation est crée pour la date demandée<br><br><span style="font-style: italic;">Scénario principal (succès):</span><br>1. Le client demande une annualtion de réservation<br>2. Le client saisit le numéro de la réservation actuelle<br>3. Le système vérifie si le numéro de réservation est valide :<br>- la réservation existe dans le système<br>- le réservation est confirmé (payée)<br>4. Le client saisit la nouvelle date du vol<br>5. Le système vérifie la disponibilité des sièges de la même catégorie pour la date choisie<br>6. Le système cree une nouvelle réservation confirmé pour la data choisie<br>7. Le système annule l'ancienne réservation et change le statut du siège réserve de RÉSERVÉ à LIBRE<br>8. Le système confirme au client que l&#8217;opération a été effectuée<br><h4>Cas 8: Changer la catégorie d'un siège confirmé</h4><span style="font-style: italic;">Acteurs :</span><br>- le client<br>- le système<br><br><span style="font-style: italic;">Pré-conditions:</span><br>- le client possède un numéro de réservation<br>- le siège est confirmé<br><br><span style="font-style: italic;">Post-conditions</span><br>- le siège réservé redevient disponible<br>- un nouveau siège et réservé et confirmé pour le client<br><br><span style="font-style: italic;">Scénario principal (succès):</span><br>1. Le client demande une annualtion de réservation<br>2. Le client saisit le numéro de la réservation actuelle<br>3. Le système vérifie si le numéro de réservation est valide :<br>- la réservation existe dans le système<br>- le réservation est confirmé (payée)<br>4. Le client choisit la classe (catégorie) de siège désirée<br>5. Le système vérifie la disponibilité des sièges dans la classe choisie<br>6. Le système cree une nouvelle reservation pour le siège choisi<br>7. Le système propose au client d'effectuer le payement<br>8. Le client entre la carte<br>9. Le système communique au système de payement externe et autorise le payement<br>10. Le système assigne le siège au client&nbsp;&nbsp;&nbsp; (change le statut de siège de RÉSERVÉ à CONFIRMÉ)<br>11. Le système annule l'ancienne réservation et change le statut du siège réserve de RÉSERVÉ à LIBRE<br>12. Le système confirme au client que l&#8217;opération a été effectuée et lui fournit un reçu<br>
-<h3>Tâche 1. Diagramme de classe conceptuel</h3>
+<br>
 <a href="Domaine">Lien vers
 les fichiers</a>.
-<br><img style="width: 1063px; height: 524px;" alt="Modele du domaine" src="Domaine/modele_domaine.png"><br>
-<h3>Tâche 2. Diagramme de séquence système et contrats</h3><h4>Diagrammes concernant l'acteur client</h4>
-<img style="width: 498px; height: 333px;" alt="Verifier vol" src="Domaine/verifier_vol.png"><br><br><img style="width: 419px; height: 408px;" alt="Reservation siege" src="Domaine/reservation_siege.png"><br><br><img style="width: 476px; height: 365px;" alt="Payement siege" src="Domaine/payer_siege.png"><br><br><img style="width: 468px; height: 322px;" alt="Annulation non confirmee" src="Domaine/annulation_non_confirmee.png"><br><br><img style="width: 468px; height: 308px;" alt="Changement reservation nonconfirmee" src="Domaine/changer_reservation_non_confirmee.png"><br><br><img style="width: 467px; height: 407px;" alt="Annulation confirmee" src="Domaine/annulation_reservation_confirmee.png"><br><br><img style="width: 467px; height: 576px;" alt="Changement reservation confirmee" src="Domaine/changement_reservation_confirmee.png"><br>
-<br><h4>Diagrammes concernant l'acteur administrateur systeme</h4>Création aéroport :<br><img style="width: 492px; height: 191px;" alt="Creer aeroport" src="Domaine/creer_aeroport.png"><br><br>Création compagnie :<br><br><img style="width: 491px; height: 196px;" alt="Creer compagnie" src="Domaine/creer_compagnie.png"><br><br>Création séction :<br><br><img style="width: 332px; height: 202px;" alt="Creer section" src="Domaine/creer_section_avion.png"><br><br>Création vol :<br><br><img style="width: 560px; height: 188px;" alt="Création vol" src="Domaine/creer_vol.png"><br><br>Identification dans système :<br><br><img style="width: 550px; height: 180px;" alt="Identification" src="Domaine/identification_dans_systeme.png"><br><br>Modification aéroport :<br><br><img style="width: 581px; height: 175px;" alt="Modifier aéroport" src="Domaine/modifier_aeroport.png"><br><br>Modification compagnie :<br><br><img style="width: 718px; height: 179px;" alt="Modification compagnie" src="Domaine/modifier_compagnie.png"><br><br>Modification vol :<br><br><img style="width: 704px; height: 183px;" alt="Modification vol" src="Domaine/modifier_vol.png"><br><br>Supprimer aéroport :<br><br><img style="width: 521px; height: 174px;" alt="Supprimer aéroport" src="Domaine/supprimer_aeroport.png"><br><br>Supprimer compagnie :<br><br><img style="width: 532px; height: 196px;" alt="Supprimer compagnie" src="Domaine/supprimer_compagnie.png"><br><br>Supprimer vol :<br><br><img style="width: 499px; height: 187px;" alt="Supprimer vol" src="Domaine/supprimer_vol.png"><br><br>
-<h2>Design logiciel</h2>
+<br>
+<br>
+<h2>Modèle de conception du domaine</h2>
+<h3>Tâche 0. Diagramme de cas d'utilisation concernant le client
+et la déscription des cas d'utilisation</h3>
+Premièrement, on à créé une diagrame de cas d'utilisation et la
+déscription détailée pour chaque cas d'utilisation. Cela nous a aidée
+de mieux comprendre la structure qu'on devait implementer.<img style="width: 1083px; height: 659px;" alt="Diagramme cas d'utilisation" src="Domaine/diagramme_cas_utilisation.png"><br>
+<h4>Cas 1: Vérifier des vols disponibles</h4>
+<span style="font-style: italic;">Acteur :</span> le
+client<br>
+<span style="font-style: italic;">Post-condition :</span>
+le système affiche la liste des vols avec le détail pour chacun : date
+et heure de départ, durée du vol, heure d'arrivée, compagnie aérienne,
+numéro du vol, prix, nombre de sièges disponibles pour la section.<br>
+<br>
+<span style="font-style: italic;">Scénario principal
+(succès) :</span><br>
+1. Le client commence une nouvelle recherche<br>
+2. Le client saisit l&#8217;aéroport d'origine, la destination, une date et
+la classe désirée<br>
+3. Le système affiche la liste des vols avec le détail pour chacun :
+date et heure de départ, durée du vol, heure d'arrivée, compagnie
+aérienne, numéro du vol, prix, nombre de sièges disponibles pour la
+section<br>
+<br>
+<span style="font-style: italic;">Scénario alternatif :</span><br>
+3a : aucun siège disponible pour les données saisies<br>
+1. Le système retourne une liste vide (soit une message)<br>
+<h4>Cas 2: Réserver un siège</h4>
+<span style="font-style: italic;">Acteurs :</span>
+le client<br>
+<span style="font-style: italic;">Pré-conditions :</span><br>
+- il y a au moins un siège disponible dans un vol donné<br>
+<br>
+<span style="font-style: italic;">Post-conditions :</span><br>
+- le système fourni au client le numéro de réservation du siège choisi<br>
+- le système marque le siège choisit n&#8217;étant plus disponible<br>
+<br>
+<span style="font-style: italic;">Scénario principal
+(succès):</span><br>
+1. Le client commence une réservation<br>
+2. Le client saisit le numéro du vol choisit dans le système<br>
+3. Le système affiche les sieges disponibles<br>
+4. Le client choisit un siège et saisit le numéro du siège<br>
+5. Le système marque le siège choisit RÉSERVÉ<br>
+6. Le système présente au client le numéro de réservation du siège
+choisi<br>
+<h4>Cas 3: Payer un siège</h4>
+<span style="font-style: italic;">Acteur : </span>le
+client<br>
+<span style="font-style: italic;">Pré-conditions :</span>
+le client possède un numéro de réservation<br>
+<span style="font-style: italic;">Post-conditions :</span><br>
+- Un siège réservé devient assigné à un passager<br>
+- Une confirmation de paiement est produite<br>
+<br style="font-style: italic;">
+<span style="font-style: italic;">Scénario principal
+(succès):</span><br>
+1. Le client commence un payement<br>
+2. Le client saisit le numéro de réservation du siège<br>
+3. Le système vérifie si le numéro de réservation est valide :<br>
+- la réservation existe dans le système<br>
+- la réservation n&#8217;est pas expirée (il y a moins de 24 après la
+réservation)<br>
+- le siège réservé n&#8217;est pas confirmé<br>
+4. Le système affiche le montant à payer et propose au client de payer<br>
+5. Le client saisit les données personnelles (non, âge, adresse etc.)<br>
+6. Le client effectue un payement par carte de crédit<br>
+7. Le système communique au système de payement externe et demande
+d&#8217;autoriser le payement.<br>
+8. Le système assigne le siège au client&nbsp; (change le statut de
+siège de RÉSERVÉ à CONFIRMÉ)<br>
+9. Le système enregistre la vente<br>
+10. Le système génère un reçu au client<br>
+<h4>Cas 4: Annuler une réservation non confirmée</h4>
+<span style="font-style: italic;">Acteur :</span> le
+client<br>
+<span style="font-style: italic;">Pré-condition :</span>
+le client possède un numéro de réservation<br>
+<span style="font-style: italic;">Post-condition :</span>
+le siège réservé redevient disponible<br>
+<br>
+<span style="font-style: italic;">Scénario principal
+(succès):</span><br>
+1. Le client demande une annulation de réservation<br>
+2. Le client saisit le numéro de réservation du siège<br>
+3. Le système vérifie si le numéro de réservation est valide :<br>
+- la réservation existe dans le système<br>
+- la réservation n&#8217;est pas expirée (il y a moins de 24 après la
+réservation)<br>
+- le siège réservé n&#8217;est pas confirmé<br>
+4. Le système annule la réservation et change le statut du siège
+réserve de RÉSERVÉ à DISPONIBLE<br>
+5. Le système confirme au client que l&#8217;opération a été effectuée<br>
+<h4>Cas 5: Changer une réservation non confirméee</h4>
+<span style="font-style: italic;">Acteur :</span> le
+client<br>
+<span style="font-style: italic;">Pré-conditions :</span>
+le client possède un numéro de réservation<br>
+<span style="font-style: italic;">Post-condition :</span><br>
+- le siège réservé redevient disponible<br>
+- le systéme propose au client à faire une nouvelle réservation<br>
+<br>
+<span style="font-style: italic;">Scénario principal
+(succès):</span><br>
+1. Le client demande un changement de réservation<br>
+2. Le client saisit le numéro de la réservation actuelle<br>
+3. Le système vérifie si le numéro de réservation est valide :<br>
+- la réservation existe dans le système<br>
+- la réservation n&#8217;est pas expirée (il y a moins de 24 après la
+réservation)<br>
+- le siège réservé n&#8217;est pas confirmé<br>
+4. Le système annule la réservation et change le statut du siège
+réserve de RÉSERVÉ à LIBRE<br>
+5. Le système confirme au client que l&#8217;opération a été effectuée et
+propose au client à effectuer une nouvelle réservation (Cas 1: Vérifier
+des vols disponibles)<br>
+<h4>Cas 6: Annuler une réservation confirmée</h4>
+<span style="font-style: italic;">Acteurs :</span><br>
+- le client<br>
+- le système<br>
+<br>
+<span style="font-style: italic;">Pré-conditions:</span><br>
+- le client possède un numéro de réservation<br>
+- le siège est confirmé<br>
+<br>
+<span style="font-style: italic;">Post-conditions</span>
+:<br>
+- le siège réservé redevient disponible<br>
+- 90% du prix payé est remboursé au client<br>
+<br>
+<span style="font-style: italic;">Scénario principal
+(succès):</span><br>
+1. Le client demande une annualtion de réservation<br>
+2. Le client saisit le numéro de la réservation actuelle<br>
+3. Le système vérifie si le numéro de réservation est valide :<br>
+- la réservation existe dans le système<br>
+- le réservation est confirmé (payée)<br>
+5. Le système propose au client d'effectuer un payment<br>
+6. Le client entre la carte<br>
+7. Le système communique au système de payement externe et rembourse
+90% du prix payé au client<br>
+8. Le système annule la réservation et change le statut du siège
+réserve de RÉSERVÉ à LIBRE<br>
+9. Le système confirme au client que l&#8217;opération a été
+effectuée&nbsp; et lui fournit un reçu<br>
+<h4>Cas 7: Changer la date d'une réservation confirmée</h4>
+<span style="font-style: italic;">Acteurs :</span><br>
+- le client<br>
+<br>
+<span style="font-style: italic;">Pré-conditions:</span><br>
+- le client possède un numéro de réservation<br>
+- le siège est confirmé<br>
+<br>
+<span style="font-style: italic;">Post-conditions</span><br>
+- le siège réservé redevient disponible<br>
+- une nouvelle réservation est crée pour la date demandée<br>
+<br>
+<span style="font-style: italic;">Scénario principal
+(succès):</span><br>
+1. Le client demande une annualtion de réservation<br>
+2. Le client saisit le numéro de la réservation actuelle<br>
+3. Le système vérifie si le numéro de réservation est valide :<br>
+- la réservation existe dans le système<br>
+- le réservation est confirmé (payée)<br>
+4. Le client saisit la nouvelle date du vol<br>
+5. Le système vérifie la disponibilité des sièges de la même catégorie
+pour la date choisie<br>
+6. Le système cree une nouvelle réservation confirmé pour la data
+choisie<br>
+7. Le système annule l'ancienne réservation et change le statut du
+siège réserve de RÉSERVÉ à LIBRE<br>
+8. Le système confirme au client que l&#8217;opération a été effectuée<br>
+<h4>Cas 8: Changer la catégorie d'un siège confirmé</h4>
+<span style="font-style: italic;">Acteurs :</span><br>
+- le client<br>
+- le système<br>
+<br>
+<span style="font-style: italic;">Pré-conditions:</span><br>
+- le client possède un numéro de réservation<br>
+- le siège est confirmé<br>
+<br>
+<span style="font-style: italic;">Post-conditions</span><br>
+- le siège réservé redevient disponible<br>
+- un nouveau siège et réservé et confirmé pour le client<br>
+<br>
+<span style="font-style: italic;">Scénario principal
+(succès):</span><br>
+1. Le client demande une annualtion de réservation<br>
+2. Le client saisit le numéro de la réservation actuelle<br>
+3. Le système vérifie si le numéro de réservation est valide :<br>
+- la réservation existe dans le système<br>
+- le réservation est confirmé (payée)<br>
+4. Le client choisit la classe (catégorie) de siège désirée<br>
+5. Le système vérifie la disponibilité des sièges dans la classe choisie<br>
+6. Le système cree une nouvelle reservation pour le siège choisi<br>
+7. Le système propose au client d'effectuer le payement<br>
+8. Le client entre la carte<br>
+9. Le système communique au système de payement externe et autorise le
+payement<br>
+10. Le système assigne le siège au client&nbsp; (change le statut
+de siège de RÉSERVÉ à CONFIRMÉ)<br>
+11. Le système annule l'ancienne réservation et change le statut du
+siège réserve de RÉSERVÉ à LIBRE<br>
+12. Le système confirme au client que l&#8217;opération a été effectuée et
+lui fournit un reçu<br>
+<br>
+<h3>Tâche 1. Diagramme de classe conceptuel</h3>
+Le diagramme de classe conceptuel était conûe à partir de la
+déscription de besoins. Pour l'extraction de classes conceptuelles on a
+utilisé la méthode de liste de classes conceptuelles en combinaison
+avec la méthode d'extractions des noms.<br>
+<br>
+<span style="font-weight: bold;">Liste de classes
+conceptuelles</span><b style=""><span style="text-transform: uppercase;"><o:p></o:p></span></b>
+<table style="border: medium none ; border-collapse: collapse;" class="MsoTableGrid" border="1" cellpadding="0" cellspacing="0">
+<tbody>
+<tr style="">
+<td style="border: 1pt solid windowtext; padding: 0cm 5.4pt; width: 233.75pt; font-weight: bold;" valign="top" width="312">
+Categorie
+de classe conceptuelle
+</td>
+<td style="border-style: solid solid solid none; border-color: windowtext windowtext windowtext -moz-use-text-color; border-width: 1pt 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt; font-weight: bold;" valign="top" width="312">
+Classes
+conceptuelles
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+physical
+or tangible objects
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+Avion,
+Siege
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+specifications,
+designs, or descriptions of things
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+DescriptionVol
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+places
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+Ville,&nbsp;Aeroport
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+transactions
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+Reservation,&nbsp;Payement
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+transactions
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+TransactionPayement
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+roles
+of people
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+Client
+
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+containers
+of other things
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+Avion,&nbsp;Classe
+ou Section
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+things
+in a container
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+Client
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+abstract
+noun concepts
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+Prix
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+organizations
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+CompanieAerienne
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+events
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+Vol
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+processes
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+ReservationSiege
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+rules
+and policies
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+PolitiqueRemboursement
+</td>
+</tr>
+<tr style="">
+<td style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 1pt 1pt; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+catalogs
+</td>
+<td style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 1pt 1pt medium; padding: 0cm 5.4pt; width: 233.75pt;" valign="top" width="312">
+ListeVols
+(consultation vols)
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+Ensuite, on a inclut dans le diagramme les classes les plus
+significatives.<br>
+La conception de diagramme est fait en 3 étapes principales:<br>
+<ol>
+<li>Création cases de classes conceptuelles.</li>
+<li>Création des association entre les classes.</li>
+<li>Attributs de base.</li>
+</ol>
+Comme résultat le diagramme suivante a était obtenue :<br>
+<img style="width: 1063px; height: 524px;" alt="Modele du domaine" src="Domaine/modele_domaine.png"><br>
+<h3>Tâche 2. Diagramme de séquence système et contrats</h3>
+On a conçu des diagrammes de séquence système pour l'acteur client et
+pour l'administrateur sstème.&nbsp;
+<h4>Diagrammes concernant l'acteur client</h4>
+<img style="width: 498px; height: 333px;" alt="Verifier vol" src="Domaine/verifier_vol.png"><br>
+<br>
+<img style="width: 419px; height: 408px;" alt="Reservation siege" src="Domaine/reservation_siege.png"><br>
+<br>
+<img style="width: 476px; height: 365px;" alt="Payement siege" src="Domaine/payer_siege.png"><br>
+<br>
+<img style="width: 468px; height: 322px;" alt="Annulation non confirmee" src="Domaine/annulation_non_confirmee.png"><br>
+<br>
+<img style="width: 468px; height: 308px;" alt="Changement reservation nonconfirmee" src="Domaine/changer_reservation_non_confirmee.png"><br>
+<br>
+<img style="width: 467px; height: 407px;" alt="Annulation confirmee" src="Domaine/annulation_reservation_confirmee.png"><br>
+<br>
+<img style="width: 467px; height: 576px;" alt="Changement reservation confirmee" src="Domaine/changement_reservation_confirmee.png"><br>
+<br>
+<h4>Diagrammes concernant l'acteur administrateur systeme</h4>
+Création aéroport :<br>
+<img style="width: 492px; height: 191px;" alt="Creer aeroport" src="Domaine/creer_aeroport.png"><br>
+<br>
+Création compagnie :<br>
+<br>
+<img style="width: 491px; height: 196px;" alt="Creer compagnie" src="Domaine/creer_compagnie.png"><br>
+<br>
+Création séction :<br>
+<br>
+<img style="width: 332px; height: 202px;" alt="Creer section" src="Domaine/creer_section_avion.png"><br>
+<br>
+Création vol :<br>
+<br>
+<img style="width: 560px; height: 188px;" alt="Création vol" src="Domaine/creer_vol.png"><br>
+<br>
+Identification dans système :<br>
+<br>
+<img style="width: 550px; height: 180px;" alt="Identification" src="Domaine/identification_dans_systeme.png"><br>
+<br>
+Modification aéroport :<br>
+<br>
+<img style="width: 581px; height: 175px;" alt="Modifier aéroport" src="Domaine/modifier_aeroport.png"><br>
+<br>
+Modification compagnie :<br>
+<br>
+<img style="width: 718px; height: 179px;" alt="Modification compagnie" src="Domaine/modifier_compagnie.png"><br>
+<br>
+Modification vol :<br>
+<br>
+<img style="width: 704px; height: 183px;" alt="Modification vol" src="Domaine/modifier_vol.png"><br>
+<br>
+Supprimer aéroport :<br>
+<br>
+<img style="width: 521px; height: 174px;" alt="Supprimer aéroport" src="Domaine/supprimer_aeroport.png"><br>
+<br>
+Supprimer compagnie :<br>
+<br>
+<img style="width: 532px; height: 196px;" alt="Supprimer compagnie" src="Domaine/supprimer_compagnie.png"><br>
+<br>
+Supprimer vol :<br>
+<br>
+<img style="width: 499px; height: 187px;" alt="Supprimer vol" src="Domaine/supprimer_vol.png"><br>
+<br><br>
+<h3>Quelques contrats</h3>
+
+
+<!-- Cas utilisation: Verifier vols disponibles -->
+<!-- afficherVols -->
+<span style="font-weight: bold;">Contrat pour </span><em style="font-weight: bold;">afficherVols<br></em><b>Opèration :</b> afficherVols(aéroportDépart, aéroportDéstination, date, classe).<br><b>Référence :</b> Cas d'utilisation <em>Verifier vols disponibles.</em><br><b>Préconditions :</b> Il n'y a pas de liste de vols.<br><b>Postconditions :</b> <ul>
+<li>Une instance listeVols de ListeVols est créée.</li>
+<li>listeVol est associée avec Vol.</li>
+</ul>
+
+
+<!-- Cas utilisation: Réserver un siège -->
+<!-- Réserver siège -->
+<span style="font-weight: bold;"><br>Contrat pour </span><em style="font-weight: bold;">RéserverSiège<br></em><b>Opèration :</b> RéserverSiège (vol, priorité).<br><b>Référence :</b> Cas d'utilisation <em>Réserver siège</em>.<br><b>Préconditions :</b> Il n'y a pas de réservations et il y a des sièges disponibles pour un vol donné.<br><b>Postconditions :</b> <ul>
+<li>Une instance réservation de Réservation est créée.</li>
+<li>réservation est associée avec Siège d'un Vol.</li>
+</ul>
+
+
+<!-- Saisir siège -->
+<span style="font-weight: bold;"><br>Contrat pour </span><em style="font-weight: bold;">saisirSiège<br></em><b>Opèration :</b> saisirSiège (numéroSiège)<br><b>Référence :</b> Cas d'utilisation <em>Réserver siège</em>.<br><b>Préconditions :</b> La valeur de l'attribut noSiègesDispo du Vol est &gt; 0 et le siège à réserver est disponible.<br><b>Postconditions :</b> </body><ul><li>L'attribut étatRéservation du siège devient réservé (ou true).</li><li>L'attribut noSiègesDispo du Vol décremente sa valeur.</li></ul><body>
+
+
+
+<!-- Cas utilisation: Payer siège -->
+<!-- Payer siège -->
+<span style="font-weight: bold;"><br>Contrat pour </span><em style="font-weight: bold;">PayerSiège</em><b><br>Opèration :</b> payerSiège (donnéesPersonnelles, modePayement).<b><br>Référence :</b> Cas d'utilisation <em>Payer siège</em>.<b><br>Préconditions :</b> Le siège n'est pas payé et il est en état réservé.<b><br>Postconditions :</b></body><ul><li>Une instance payement dans Payement est créée.</li><li>Une association entre Payement et Réservation est créée.</li><li>L'instance état du Siège change son état en payé.</li><li>Les attributs de l'instance du Payement ont enregistrés les données de la transaction.</li></ul><body>
+
+
+
+
+
+<!-- Cas utilisation: Annuler réservation nonconfirmée -->
+<!-- Demander annulation -->
+<span style="font-weight: bold;"><br>Contrat pour </span><em style="font-weight: bold;">demanderAnnulation</em><b><br>Opèration :</b> demanderAnnulation (noConfirmation)<b><br>Référence :</b> Cas d'utilisation <em>Annuler réservation nonconfirmée</em>.<b><br>Préconditions :</b> Une reservation est active, mais elle n'est pas encore payée.<b><br>Postconditions :</b></body><ul><li>Lattribut état de l'instance du Siège redevient disponnible.</li><li>La valeur de l'attribut noPlacesDispo du Vol incremente.</li><li>L'instance réservation de Réservation est éffacée.</li></ul><body>
+
+
+
+
+<!-- Cas utilisation: Changer réservation nonconfirmée -->
+<!-- Demander changement -->
+<span style="font-weight: bold;"><br>Contrat pour </span><em style="font-weight: bold;">demanderChangement</em><b><br>Opèration :</b> demanderChangement (noRéservation)<b><br>Référence :</b> Cas d'utilisation <em>Changer réservation nonconfirmée</em>.<b><br>Préconditions :</b> Une reservation est active, mais elle n'est pas encore payée.<b><br>Postconditions :</b></body><ul><li>Lattribut état de l'instance du Siège redevient disponnible.</li><li>Lattribut état de l'autre instance du Siège devient reservé.</li></ul><br><body><br><h2>Design logiciel</h2>
 <h3>Tâche 3. Diagramme de classe</h3>
 TO DO<br>
 <h3>Tâche 4.&nbsp;Diagrammes de séquence ou de collaboration</h3>
-TO DO<br><br>
+TO DO<br>
+<br>
 <h3>Tâche 5.&nbsp;Diagramme de paquets</h3>
-TO DO<br><br>
+TO DO<br>
+<br>
 <h3>Tâche 6. Contraintes OCL</h3>
 1) L'aéroport de départ et d'arrivée sont différents.<br>
 <br>
@@ -133,7 +587,8 @@ self.vol.avion.section.siège.étatRéservation = "disponible"<br>
 &nbsp;&nbsp; <span style="font-weight: bold;">post</span>:
 self.noRéservation &lt;&gt; null<br>
 &nbsp;&nbsp; <span style="font-weight: bold;">post</span>:
-self.tempsRéstantRéservation = 24<br><br>
+self.tempsRéstantRéservation = 24<br>
+<br>
 <h3>Tâche 7.&nbsp;Diagramme d'état</h3>
 TO DO
 </body></html>
