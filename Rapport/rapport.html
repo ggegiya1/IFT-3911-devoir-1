@@ -517,12 +517,12 @@ Supprimer vol :<br>
 <!-- Cas utilisation: Changer réservation nonconfirmée -->
 <!-- Demander changement -->
 <span style="font-weight: bold;"><br>Contrat pour </span><em style="font-weight: bold;">demanderChangement</em><b><br>Opèration :</b> demanderChangement (noRéservation)<b><br>Référence :</b> Cas d'utilisation <em>Changer réservation nonconfirmée</em>.<b><br>Préconditions :</b> Une reservation est active, mais elle n'est pas encore payée.<b><br>Postconditions :</b><ul><li>Lattribut état de l'instance du Siège redevient disponnible.</li><li>Lattribut état de l'autre instance du Siège devient reservé.</li></ul><br><br><h2>Design logiciel</h2>
-Les <a href="Design">fichiers</a> de diagrammes de design.
+Les <a href="Design">fichiers</a> de diagrammes de design.<br>
 <h3>Tâche 3. Diagramme de classe</h3><img style="width: 1947px; height: 913px;" alt="Diagramme de classes" src="Design/diagramme_classes.jpg"><br>
-<h3>Tâche 4.&nbsp;Diagrammes de séquence</h3>Vérification vol et siège disponible :<br>
+<h3><br></h3><h3>Tâche 4.&nbsp;Diagrammes de séquence</h3>Vérification vol et siège disponible :<br><br>
 <img style="width: 1390px; height: 312px;" alt="Verification vol" src="Design/ds_verification_vols_et_sieges_disponibles.jpg"><br>
 <br><br>Réservation siège :<br><br><img style="width: 1786px; height: 663px;" alt="Réservation" src="Design/ds_reserver_siege.jpg"><br><br><br>Payement réservation :<br><br><img style="width: 2139px; height: 1006px;" alt="Payement" src="Design/ds_payer_reservation.jpg"><br><br><br>Sub-diagramme pour le&nbsp;payement :<br><br><img style="width: 2134px; height: 970px;" alt="Subpayement" src="Design/ds_payement_sub_diagram.jpg"><br>
-<p>Chander de siège non-confirmé :<br></p><h3><img style="width: 1604px; height: 676px;" alt="Chander de siège non-confirmé" src="Design/ds_changer_si%E8ge_nonconfirme.jpg"><br></h3><br>Chander de siège non-confirmé :<br><br><img style="width: 1750px; height: 1139px;" alt="Annuler siège confirmé" src="Design/ds_changer_siege_confirme.jpg"><br><br><br>Annuler réservation :<br><br><img style="width: 1521px; height: 464px;" alt="Annuler réservation" src="Design/ds_annuler_reservation.jpg"><br><h3><br></h3>Annulation siège confirmé :<br><br><img style="width: 1958px; height: 912px;" alt="Annulation siège confirmé" src="Design/ds_annuler_siege_confirme.jpg"><br><br><h3>Tâche 5.&nbsp;Diagramme de paquets</h3><img style="width: 1444px; height: 1054px;" alt="Diagramme de paquets" src="Design/diagramme_paquets.jpg"><br>
+<p></p><p>Chander de siège non-confirmé :<br></p><h3><img style="width: 1604px; height: 676px;" alt="Chander de siège non-confirmé" src="Design/ds_changer_si%E8ge_nonconfirme.jpg"><br></h3><br>Chander de siège non-confirmé :<br><br><img style="width: 1750px; height: 1139px;" alt="Annuler siège confirmé" src="Design/ds_changer_siege_confirme.jpg"><br><br><br>Annuler réservation :<br><br><br><img style="width: 1521px; height: 464px;" alt="Annuler réservation" src="Design/ds_annuler_reservation.jpg"><br><span style="font-weight: bold;"><br><br></span>Annulation siège confirmé :<br><br><br><img style="width: 1958px; height: 912px;" alt="Annulation siège confirmé" src="Design/ds_annuler_siege_confirme.jpg"><br><br><br><h3>Tâche 5.&nbsp;Diagramme de paquets</h3><img style="width: 1444px; height: 1054px;" alt="Diagramme de paquets" src="Design/diagramme_paquets.jpg"><br>
 <br>
 <h3>Tâche 6. Contraintes OCL</h3>
 1) L'aéroport de départ et d'arrivée sont différents.<br>
@@ -530,7 +530,7 @@ Les <a href="Design">fichiers</a> de diagrammes de design.
 <span style="font-weight: bold;">context</span>
 DéscriptionVol<br>
 &nbsp;&nbsp; <span style="font-weight: bold;">inv</span>:
-self.départ &lt;&gt; self.arrivée<br>
+self.origine &lt;&gt; self.destination<br>
 <br>
 2) La partie alphabétique de l'ID d'un vol est unique à chaque
 compagnie <br>
