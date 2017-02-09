@@ -533,40 +533,34 @@ DéscriptionVol<br>
 self.origine &lt;&gt; self.destination<br>
 <br>
 2) La partie alphabétique de l'ID d'un vol est unique à chaque
-compagnie <br>
-&nbsp;&nbsp; et la partie numérique est unique à chaque vol au
+compagnie&nbsp;et la partie numérique est unique à chaque vol au
 sein de la même compagnie.<br>
 <br>
 <span style="font-weight: bold;">context</span>
-CompagnieAériene<br>
+CompagnieAeriene<br>
 &nbsp;&nbsp; <span style="font-weight: bold;">inv</span>:
 <span style="font-weight: bold;">let</span> <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-first2chars = self.vol.id.at(0) + self.vol.id.at(1)<br>
+first2chars = self.description.vol.id.<span style="font-style: italic;">at</span>(0) +&nbsp;self.description.vol.id.<span style="font-style: italic;">at</span>(1)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-last_chars&nbsp; = self.vol.id.excludes(first2chars)<br>
+last_chars&nbsp;=&nbsp;self.description.vol.id.<span style="font-style: italic;">excludes</span>(first2chars)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
 &nbsp; <span style="font-weight: bold;">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-self.allInstances() -&gt; forAll(c1, c2: CompagnieAériene <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-| c1 &lt;&gt; c2 implies c1.first2chars &lt;&gt;
+self.allInstances() -&gt; <span style="font-style: italic;">forAll</span>(c1, c2: CompagnieAeriene&nbsp;| c1 &lt;&gt; c2 <span style="font-weight: bold;">implies</span> c1.first2chars &lt;&gt;
 c2.first2chars)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-self.vol.allInstances() -&gt; forAll(v1, v2: Vol <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-| v1 &lt;&gt; v2 <span style="font-weight: bold;">implies</span>
+self.description.vol.<span style="font-style: italic;">allInstances</span>() -&gt; <span style="font-style: italic;">forAll</span>(v1, v2: Vol | v1 &lt;&gt; v2 <span style="font-weight: bold;">implies</span>
 v1.last_chars &lt;&gt; v2.last_chars)<br>
 <br>
 3) Tous les sièges d'une même section ont le même prix dans la même
 compagnie.<br>
 <br>
 <span style="font-weight: bold;">context</span>
-CompagnieAériene<br>
+CompagnieAeriene<br>
 &nbsp;&nbsp; <span style="font-weight: bold;">inv</span>:
-self.vol.avion.séction.siège.allInstances() <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; forAll(s1,
-s2: self.vol.avion.séction.siège <br>
+self.description.vol.avion.siege.<span style="font-style: italic;">allInstances</span>() -&gt; <span style="font-style: italic;">forAll</span>(s1,
+s2: self.description.vol.avion.siege <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 | s1 &lt;&gt; s1 <span style="font-weight: bold;">implies</span>
 s1.prix = s2.prix)<br>
@@ -575,13 +569,13 @@ s1.prix = s2.prix)<br>
 postcondition de l'opération réserver().<br>
 <br>
 <span style="font-weight: bold;">context</span>
-Reservation :: réserver (noSiege)<br>
+Reservation :: reserver (noSiege)<br>
 &nbsp;&nbsp; <span style="font-weight: bold;">pre</span>:&nbsp;
-self.vol.avion.section.siège.étatRéservation = "disponible"<br>
+self.siege.etat = "LIBRE"<br>
 &nbsp;&nbsp; <span style="font-weight: bold;">post</span>:
-self.noRéservation &lt;&gt; null<br>
+self.idReservation &lt;&gt; null<br>
 &nbsp;&nbsp; <span style="font-weight: bold;">post</span>:
-self.tempsRéstantRéservation = 24<br>
+self.timeEnd - self.time &gt; 24<br>
 <br>
 <h3>Tâche 7.&nbsp;Diagramme d'état</h3>
 <img style="width: 889px; height: 459px;" alt="Diagramme d'états" src="Design/diagramme_etat.jpg"><br>
